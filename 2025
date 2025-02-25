@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jack Dugoni - Engineering Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --dark-bg: #2c3e50;
+            --card-bg: #fff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+        }
+        
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .header-text {
+                text-align: center;
+            }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .contact-info {
+            margin: 1.5rem 0;
+        }
+        
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .content {
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        .summary {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .device-showcase {
+            margin-top: 2rem;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .device-showcase h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .device-showcase img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .device-showcase p {
+            font-style: italic;
+            margin-top: 1rem;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .skill-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .project-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-title {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .indicator {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+        
+        .expanded .indicator {
+            transform: rotate(180deg);
+        }
+        
+        .project-summary {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .project-details {
+            display: none;
+            margin-top: 1rem;
+        }
+        
+        .project-card.expanded .project-details {
+            display: block;
+        }
+        
+        .project-details ul {
+            padding-left: 1.5rem;
+        }
+        
+        .project-details li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12.5px;
+            background-color: var(--light-bg);
+            border: 4px solid var(--primary-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -12.5px;
+        }
+        
+        .right::after {
+            left: -12.5px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--card-bg);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-title {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+        }
+        
+        .project-tags {
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="/api/placeholder/400/400" alt="Jack Dugoni" class="profile-img">
+            <div class="header-text">
+                <h1>Jack Dugoni</h1>
+                <p class="title">Staff Mechanical Engineer</p>
+                <div class="contact-info">
+                    <a href="tel:2093388978">(209) 338-8978</a> |
+                    <a href="mailto:jackdugoni@gmail.com">jackdugoni@gmail.com</a> |
+                    <a href="https://www.linkedin.com/in/jackdugoni" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="summary">Summary</button>
+            <button class="tab-btn" data-tab="skills">Skills</button>
+            <button class="tab-btn" data-tab="projects">Projects</button>
+            <button class="tab-btn" data-tab="experience">Experience</button>
+            <button class="tab-btn" data-tab="reflexion">RefleXion X1</button>
+        </div>
+        
+        <div id="summary" class="content active">
+            <div class="summary">
+                <h2>Professional Summary</h2>
+                <p>I am an enthusiastic problem solver with a passion for new challenges and exploring/learning new technical skills. I have a strong understanding of robotics, fluids, thermal and mechanical design and analysis, with experience in leading design, test, equipment/component selection, hands-on builds, bring-up and troubleshooting.</p>
+                <br>
+                <p>Despite spending my entire career at RefleXion Medical, I have broad engineering experience. I have worked on designing thermal subsystems from the ground up, owning a 5-axis robotic subsystem, designing a 5-axis robotic fixture for manufacturing, writing PLC controls software, and developing image processing software tools for radiation film analysis.</p>
+                <br>
+                <p>I am deeply internally motivated to accomplish high-level goals, and I am able to make a plan of attack to get there. My broad experience comes from my relentless drive to complete high-level goals and my willingness to delve into any topic and learn new skills to reach the objectives.</p>
+            </div>
+        </div>
+        
+        <div id="skills" class="content">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3 class="skill-title">Mechanical Design</h3>
+                    <ul>
+                        <li>SolidWorks</li>
+                        <li>CFD/FEA/Thermal Analysis</li>
+                        <li>Custom Heat Exchangers</li>
+                        <li>Multi-material Components</li>
+                        <li>DFM & DFA</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Programming & Controls</h3>
+                    <ul>
+                        <li>MATLAB</li>
+                        <li>C++</li>
+                        <li>C#</li>
+                        <li>PLC Programming (IEC 61131-3)</li>
+                        <li>Ladder Logic</li>
+                        <li>EtherCAT</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Robotics & Motion</h3>
+                    <ul>
+                        <li>5-Axis Positioning Systems</li>
+                        <li>BLDC Motors</li>
+                        <li>Encoders</li>
+                        <li>Motion Trajectory Generation</li>
+                        <li>PID Control Systems</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Project Management</h3>
+                    <ul>
+                        <li>Cross-functional Team Leadership</li>
+                        <li>Requirements Definition</li>
+                        <li>FMEA Development</li>
+                        <li>Verification Testing</li>
+                        <li>Vendor Management</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Thermal Systems</h3>
+                    <ul>
+                        <li>Liquid Cooling Systems</li>
+                        <li>Air Cooling Systems</li>
+                        <li>Thermal Modeling</li>
+                        <li>Heat Exchanger Design</li>
+                        <li>Temperature Control Systems</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Imaging & Software</h3>
+                    <ul>
+                        <li>Image Processing</li>
+                        <li>MATLAB Analysis Tools</li>
+                        <li>Alignment Systems</li>
+                        <li>Beam Quality Verification</li>
+                        <li>Statistical/Geometric Modeling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="projects" class="content">
+            <h2>Key Projects</h2>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <span>Liquid & Air Cooling System</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <p class="project-summary">Led the "full stack" development of the liquid and air cooling subsystems including mechanical design, component selection, electrical design, integrated software, requirements, testing, prototyping, and bring up.</p>
+                <div class="project-tags">
+                    <span class="tag">Thermal Systems</span>
+                    <span class="tag">CFD</span>
+                    <span class="tag">PLC</span>
+                    <span class="tag">Component Selection</span>
+                    <span class="tag">Verification Testing</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Successfully led and completed the design, prototyping and testing effort to produce a reliable, serviceable, and manufacturable subsystem.</li>
+                        <li>Used analysis and CFD to develop thermal and fluid models of the system to inform design decisions and requirements.</li>
+                        <li>Developed all mechanical components of the subsystem including custom heat exchangers and heat plates, custom immersion heaters, weldments, riveted assemblies, sheet metal, injection molded, 3D printed and machined components.</li>
+                        <li>Selected and implemented all components including: inverters, PLCs, thermoelectric coolers, power supplies, BLDC motors, motor controllers, encoders, solenoid valves, pumps, power controllers, thermocouples and RTDS, pressure transducers, magnetic and vortex flow meters, linear position sensors, pneumatic cylinders, electronic pressure regulators.</li>
+                        <li>Engineered the electrical architecture and embedded PLC software for cooling system with a focus on predictive maintenance, enabling all components to report early warning signs of failure.</li>
+                        <li>Led the discussion with MV Beam generation, CAT/PET scan teams, Product Engineering and Systems Engineering teams to define the subsystem requirements and specification.</li>
+                        <li>Developed verification test strategy, test cases, test plan to ensure compliance with specifications.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <span>5-Axis Robotic Treatment Couch</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <p class="project-summary">As the subsystem lead/owner of the treatment couch, I oversaw all development related to the subsystem across hardware and software.</p>
+                <div class="project-tags">
+                    <span class="tag">Robotics</span>
+                    <span class="tag">Motion Control</span>
+                    <span class="tag">Project Management</span>
+                    <span class="tag">FMEA</span>
+                    <span class="tag">Verification Testing</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Managed the 5-axis patient positioning robot subsystem as the lead project engineer and led targeted improvement initiatives that optimized hardware and software performance.</li>
+                        <li>Coordinated multi-company team to lead projects from initial concept to production, including the generation and management of specifications, FMEAs and verification tests.</li>
+                        <li>Led team to implement replacement motor controllers and PLC, upgrade optical string encoders and linear magnetic encoders under tight timeline to meet production goals.</li>
+                        <li>Conducted supplier site inspection to audit QA process of using a CMM for verification of 3D positional accuracy, identified flaw and helped develop a more robust process.</li>
+                        <li>Led weekly meetings with vendors to ensure timely completion of joint projects.</li>
+                        <li>Managed a cross functional team within the company to overcome critical component obsolescence issues and fix mechanical reliability issues.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <span>PET Subsystem Redesign</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <p class="project-summary">Led the mechanical design of the Positron Emission Tomography (PET) Subsystem, which is the core technology of RefleXion Medical that enables the real-time tumor tracking ability of the treatment device.</p>
+                <div class="project-tags">
+                    <span class="tag">Patent Pending</span>
+                    <span class="tag">Thermal Design</span>
+                    <span class="tag">Modular Design</span>
+                    <span class="tag">CFD</span>
+                    <span class="tag">Systems Engineering</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Led the design of the mechanical architecture, and bi-weekly meetings to showcase progress to the directors of Mechanical Engineering, Systems Engineering and Radiation Sensing.</li>
+                        <li>Developed novel approach using a modular design (Patent Pending) which utilizes gamma radiation shielding as thermal conduction path to dissipate heat into liquid cooling.</li>
+                        <li>Designed cooling spline architecture to dissipate heat from each PET module and ASIC board.</li>
+                        <li>Incorporated space constrained packaging of PCBs, electrical and optical cables, including blind mate connection.</li>
+                        <li>Used CFD to model thermal, fluid and air flow to ensure tight temperature control.</li>
+                        <li>New design cuts service time down from 16 hours to about 10 minutes.</li>
+                        <li>New design has a 4 times wider field of view axially while maintaining the same form factor.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <span>System & LINAC Alignment Tools</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <p class="project-summary">Developed a 5-axis opto-mechanical fixture and process for physically aligning the treatment couch motion axes to the axis of rotation of the treatment device, and developed software tools to improve beam alignment.</p>
+                <div class="project-tags">
+                    <span class="tag">Optical Systems</span>
+                    <span class="tag">MATLAB</span>
+                    <span class="tag">Image Processing</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Manufacturing Processes</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Developed a 5-axis optomechanical fixture utilizing a laser to determine the axis of rotation of the machine and align the treatment couch to the machine within micron accuracy.</li>
+                        <li>Completed mechanical design, software (C#), manufacturing procedure and validation procedure and design transfer to production.</li>
+                        <li>Conducted research to characterize the relationship between inputs (linear accelerator position, collimator positions) and beam characteristic outputs.</li>
+                        <li>Utilized research results to develop a cost function to streamline and automate the linear accelerator alignment process, resulting in an 8x reduction in manufacturing time.</li>
+                        <li>Developed several image processing tools using MATLAB to verify beam quality including custom algorithm to detect spheres using a paraboloid regression.</li>
+                        <li>Developed system alignment process to align the rotating gantry with the treatment couch and the room lasers used for patient setup.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">
+                    <span>Water Distribution & Cable Management</span>
+                    <span class="indicator">▼</span>
+                </div>
+                <p class="project-summary">Designed water manifold to distribute water and control and measure flow in a tightly constrained space. Developed hose and cable routing provisions to optimize assembly and service time.</p>
+                <div class="project-tags">
+                    <span class="tag">Fluid Systems</span>
+                    <span class="tag">Manufacturing</span>
+                    <span class="tag">Serviceability</span>
+                    <span class="tag">System Integration</span>
+                </div>
+                <div class="project-details">
+                    <ul>
+                        <li>Engineered water distribution manifold with compensation for differential pressure to ensure steady flow rates resulting in better downstream cooling performance.</li>
+                        <li>Worked with the electrical team to realize a cable management scheme to improve manufacturing time and service time of electrical cables.</li>
+                        <li>Designed water distribution manifolds with pressure compensation and optimized hose/cable routing for improved assembly and serviceability.</li>
+                        <li>Designed the system to completely purge itself of water then re-fill automatically.</li>
+                        <li>Designed a distribution manifold with active feedback to control the outlet temperature of the various liquid cooled components by varying flow rates.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="experience" class="content">
+            <h2>Professional Experience</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2024 - Present</div>
+                        <h3 class="timeline-title">Staff Mechanical Engineer</h3>
+                        <p>RefleXion Medical</p>
+                        <ul>
+                            <li>Lead project engineer for 5-axis patient positioning robot</li>
+                            <li>Subsystem lead for liquid and air cooling thermal system</li>
+                            <li>Led verification test strategies and compliance validations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">April 2022 - June 2024</div>
+                        <h3 class="timeline-title">Senior Mechanical Engineer</h3>
+                        <p>RefleXion Medical</p>
+                        <ul>
+                            <li>Led the mechanical architecture design of the PET subsystem</li>
+                            <li>Developed a novel modular design for the PET Subsystem (patent pending)</li>
+                            <li>Designed and implemented PLC software featuring nested PID control</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">February 2020 - April 2022</div>
+                        <h3 class="timeline-title">Mechanical Engineer</h3>
+                        <p>RefleXion Medical</p>
+                        <ul>
+                            <li>Spearheaded the design and development of liquid and air cooling subsystems</li>
+                            <li>Developed C# applications and MATLAB image processing tools</li>
+                            <li>Collaborated with multiple vendors and cross-functional teams</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2019 - August 2019</div>
+                        <h3 class="timeline-title">Mechanical Engineering Intern</h3>
+                        <p>RefleXion Medical</p>
+                        <ul>
+                            <li>Assisted with thermal system design</li>
+                            <li>Developed testing procedures</li>
+                            <li>Participated in prototype development</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">February 2018 - August 2018</div>
+                        <h3 class="timeline-title">Mechanical Engineering Intern</h3>
+                        <p>RefleXion Medical</p>
+                        <ul>
+                            <li>Supported engineering team with design tasks</li>
+                            <li>Assisted with documentation and testing</li>
+                            <li>Learned about medical device development</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="reflexion" class="content">
+            <div class="device-showcase">
+                <h2>The RefleXion X1 System</h2>
+                <p>The RefleXion X1 is a revolutionary radiation therapy device that combines Positron Emission Tomography (PET) with a Linear Accelerator (LINAC) to deliver radiation that targets cancer's motion.</p>
+                
+                <img src="/api/placeholder/800/500" alt="RefleXion X1 System">
+                
+                <h3>My Contribution</h3>
+                <p>As a key engineer on the RefleXion team, I've led the development of multiple critical subsystems:</p>
+                <ul>
+                    <li>Designed and implemented the liquid and air cooling systems</li>
+                    <li>Led the 5-axis patient positioning robot subsystem</li>
+                    <li>Developed the mechanical architecture for the PET subsystem</li>
+                    <li>Created alignment systems and software tools for manufacturing and calibration</li>
+                </ul>
+                
+                <p>The RefleXion X1 represents a significant advancement in cancer treatment technology, and I'm proud to have contributed to its development.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Jack Dugoni. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const contentSections = document.querySelectorAll('.content');
+        
+        tabBtns.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and sections
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                contentSections.forEach(section => section.classList.remove('active'));
+                
+                // Add active class to current button and section
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Project card expansion functionality
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('expanded');
+            });
+        });
+    </script>
+</body>
+</html>
